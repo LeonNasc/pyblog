@@ -7,17 +7,16 @@ class RouteHandler:
 
   def __init__(self):
     #Inicia uma instância de rotas
-      self.instance = True
+    self.postman = Postman()
+    self.getman = Getman()
 
-  def test_mc_gee(self, method):
-    response = 'Estamos usando %s\n'%(method)
-    return response
-  
   def make_new_post(self, data):
     #data é o valor de um form em request do Flask
     #write_post formata os dados de forma 'amigável' ao BD
     data = postman.write_post(data) 
-    postman.post(data)
+    new_route = postman.post(data)
+
+    return new_route
 
   def edit_post(self, post_name, data):
     getman.get_uniqid(post_name)
@@ -29,7 +28,7 @@ class RouteHandler:
     data = getman.get_recents(amount)
     return data
 
-  def get_posts_by_index(self,fro,to):
+  def get_indexed_recents(self,fro,to):
     #Pega os posts com index de(fro) até (to). Serve para paginação
     data = getman.get_recents(fro,to)
     

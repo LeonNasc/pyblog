@@ -15,12 +15,20 @@ def not_found(dummy):
 @app.route("/blog/posts/new",methods=['POST'])
 def make_a_post():
   data = request.data
-  return 'Criaria um novo post e ao fim retornaria o ID desse post'
+  return rt.make_new_post(data)
 
 ########################## Rotas via GET ##############################  
 @app.route("/blog/posts/recent",methods=['GET'])
 def recents():
   return rt.get_recent_posts()
+
+@app.route("/blog/posts/recent_<to_fro>",methods=['GET'])
+def recents(to_fro):
+  #get_indexed_recents indexa os posts por mais recente e retorna um slice
+  #com os indexes passados
+  separated = lambda x: x.split('_')
+  to,fro = separated(to_fro)
+  return rt.get_indexed_recents(fro,to)
 
 @app.route("/blog/posts/<mes>",methods=['GET'])
 def posts_by_month(mes):
