@@ -4,20 +4,22 @@
 
 class DatabaseManager:
 
+  __instance = None
+
   def __init__(self):
     #deve ser acessado somente pelo get_instance
-    self.initialized =  True
+    if DatabaseManager.__instance:
+      return self.get_instance()      
 
-  def get_intance(self):
-    if self.instance is None:
-      self.instance = DatabaseManager()
+  @classmethod
+  def get_instance(cls):
+    if cls.__instance is None:
+      cls.__instance = DatabaseManager()
     
-    return self.instance
+    return cls.__instance
 
   def get_connection(self, access_mode):
-    #deve acessar o banco de dados e retornar uma conexão
-    
-
+    #Utiiiza Connection para criar uma conexão conforme o tipo de conexão
 
     return Connection(access_mode)
   

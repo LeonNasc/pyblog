@@ -13,22 +13,34 @@ class RouteHandler:
   def make_new_post(self, data):
     #data é o valor de um form em request do Flask
     #write_post formata os dados de forma 'amigável' ao BD
-    data = postman.write_post(data) 
-    new_route = postman.post(data)
+    data =self.postman.write_post(data) 
+    post_name = self.postman.post(data)
 
-    return new_route
+    return '%s/%s' % (API_ROUTE, post_name)
 
   def edit_post(self, post_name, data):
-    getman.get_uniqid(post_name)
-    updated_post = postman.write_post(data)
-    postman.rewrite(post_id, updated_post)
+    post_id = self.getman.get_uniqid(post_name)
+    updated_post = self.postman.write_post(data)
+    self.postman.rewrite(post_id, updated_post)
+
+    return '%s/%s' % (API_ROUTE, post_name)
+
+  def delete_post(self,post_name):
+    post_id = self.getman.get_uniqid(post_name)
+    self.postman.delete(post_id)
+
+    return self.get_recent_posts()
+
+  def get_post_by_id(self,post_name):
+    post_id = self.getman.get_uniqid(post_name)
+    return self.getman.get_post(post_id)
 
   def get_recent_posts(self, amount=20):
     #Se não definido como parametro, o padrão são 20 posts
-    data = getman.get_recents(amount)
-    return data
+    recents = self.getman.get_recents(amount)
+    return recents
 
   def get_indexed_recents(self,fro,to):
     #Pega os posts com index de(fro) até (to). Serve para paginação
-    data = getman.get_recents(fro,to)
-    
+    indexed_recents = self.getman.get_indexed(fro,to)
+    return indexed_recents 

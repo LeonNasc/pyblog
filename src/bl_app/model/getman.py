@@ -6,4 +6,4 @@ class Getman:
 
   def __init__(self):
     self.parser = DatabaseParser()
-    self.db = DatabaseManager.getInstance()
+    self.db = DatabaseManager.get_instance()
