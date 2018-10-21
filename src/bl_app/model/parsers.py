@@ -3,5 +3,5 @@
 
 class DatabaseParser:
 
-  def __init__(self):
-    self.yey = 'yey'
+    def __init__(self):
+      self.yey = 'yey'

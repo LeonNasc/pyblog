@@ -1,26 +1,31 @@
 #Gerencia as ações CRUD do programa.
-from db_manager import DatabaseManager
+from model.db_manager import DatabaseManager
 
 class Postman:
   def __init__(self):
     self.db_man = DatabaseManager()
-    self.db_instance = db_man.getInstance()
-    self.connection = db_instance.get_connection('rw')
+    self.db_instance = self.db_man.get_instance()
+    self.connection = self.db_instance.get_connection('rw')
 
-  def make_new_post(self, data):
+  def write(self, data):
 
     post_name = 'Dummy'
 
     return post_name
 
-  def edit_post(self, data):
+  def rewrite(self, post_name, data):
 
     post_name = 'Dummy'
 
     return post_name
   
-  def delete_post(self, data):
+  def delete(self, data):
 
+    post_name = 'Dummy'
+
+    return post_name
+  
+  def post(self, data):
     post_name = 'Dummy'
 
     return post_name
