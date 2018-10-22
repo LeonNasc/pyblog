@@ -1,3 +1,4 @@
+#encoding:utf-8
 #Fornece Parsers para os dados do blog
 # 19/10/18: Decidi que vou usar Markdown como linguagem de formatação do blog
 

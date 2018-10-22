@@ -1,3 +1,4 @@
+#encoding:utf-8
 #Lida com o gerenciamento de rotas, despachando os responsáveis conforme o método HTTP
 from model.postman import Postman
 from model.getman import Getman

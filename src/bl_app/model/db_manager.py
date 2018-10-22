@@ -1,3 +1,4 @@
+#encoding:utf-8
 # Gerencia a conexão com o banco de dados
 # deve implementar métodos de leitura 'ro'(somente leitura) e 'rw' (escrita)
 # com classes que expandem a funcionalidade de db_manager
@@ -9,9 +10,6 @@ class DatabaseManager:
 
   def __init__(self):
     #deve ser acessado somente pelo get_instance
-    if self.__instance:
-      return self.get_instance()      
-    
     return None
 
   @classmethod
@@ -32,7 +30,7 @@ class ConnectionStrategy:
 
   def __init__(self, strategy):
 
-    db = Postgres('url')
+    db = Postgres('postgres://jrandom@localhost/test')
 
     if strategy == 'ro':
       #Somente serve para os acessos que usam o método GET
@@ -78,6 +76,9 @@ class ReadWriteConnection:
 
 class Enquirer:
   #lida somente com a montagem de consultas ao BD
+  #TODO: Formatação para todas as consultas
+
+
   def __init__(self, access_type):
     self.type = access_type
 
