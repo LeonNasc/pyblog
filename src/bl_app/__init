@@ -9,7 +9,7 @@ export FLASK_APP=app.py
 export FLASK_ENV=development
 
 #Inicialização do psql
-psql "sslmode=disable dbname=test user=root hostaddr=172.17.0."
+psql "sslmode=disable dbname=test user=root hostaddr=172.17.0.2" &
 
 flask run --host=172.17.0.2
 

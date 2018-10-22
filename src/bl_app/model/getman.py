@@ -21,15 +21,17 @@ class Getman:
     connection = self.db.get_connection('ro')  
     data = connection.get_data('1=1')
 
-    result = '{'
+    result = '('
 
     for items in data:
+      result = result + "{"
       for k,v in items.items():
 
          result = result + '%s: %s,' % (k,v)
 
-      result = result + '}'
+      result = result + '}<br>'
 
+    result = result + ')'
     return result
   
   def get_indexed(self, fro, to):
