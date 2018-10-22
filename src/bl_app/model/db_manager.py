@@ -30,7 +30,8 @@ class ConnectionStrategy:
 
   def __init__(self, strategy):
 
-    db = Postgres('postgres://jrandom@localhost/test')
+    db = Postgres('host=172.17.0.2 port=5432 dbname=test connect_timeout=10')
+   #db = Postgres('172.17.0.2:5432') #IP do BD no container atual. Deve mudar no deploy.
 
     if strategy == 'ro':
       #Somente serve para os acessos que usam o método GET
@@ -81,13 +82,14 @@ class Enquirer:
 
   def __init__(self, access_type):
     self.type = access_type
+    self.DB_NAME = 'posts'
 
   ######## Em todos os métodos abaixo, params é dict ########
 
   def select_query(self, params):
     #método de seleção. Funciona com uma conexão 'ro' ou 'rw'
     #TODO: Transformar params em duplas 'chave=valor'
-    query = "SELECT * FROM %s WHERE %s" % (DB_NAME, params)
+    query = "SELECT * FROM %s WHERE %s;" % (self.DB_NAME, params)
 
     return query
   
@@ -95,7 +97,7 @@ class Enquirer:
     self.check_write_permission()
     #método de inserção. Funciona somente em conexões 'rw'
     #TODO: Transformar params em duas longas strings de chaves e valores
-    query = "INSERT INTO %s (%s) VALUES (%s)" % (DB_NAME, param.keys, param.values)
+    query = "INSERT INTO %s (%s) VALUES (%s)" % (self.DB_NAME, param.keys, param.values)
   
     return query
 
@@ -103,7 +105,7 @@ class Enquirer:
     self.check_write_permission()
     #método de atualização. Funciona soemnte em conexões 'rw'
     #TODO: Destrinchar os dados de params para o query 
-    query = "UPDATE %s SET %s WHERE %s" % (DB_NAME,changes, uniqid)
+    query = "UPDATE %s SET %s WHERE %s" % (self.DB_NAME,changes, uniqid)
 
     return query
     
@@ -111,7 +113,7 @@ class Enquirer:
     self.check_write_permission()
     #método de remoção. Funciona somente em conexões 'rw'
     #params é somente o id do post a ser removido
-    query = "DELETE WHERE id=%s" % (post_id)
+    query = "DELETE FROM %s WHERE id=%s" % (self.DB_NAME,post_id)
 
     return query
 

@@ -18,8 +18,19 @@ class Getman:
     return 'Test'
 
   def get_recents(self, amount=20):
-    
-    return 'Test'
+    connection = self.db.get_connection('ro')  
+    data = connection.get_data('1=1')
+
+    result = '{'
+
+    for items in data:
+      for k,v in items.items():
+
+         result = result + '%s: %s,' % (k,v)
+
+      result = result + '}'
+
+    return result
   
   def get_indexed(self, fro, to):
 

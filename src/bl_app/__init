@@ -3,8 +3,13 @@ source _venv/bin/activate
 #Configuracoes de linguagens da VM
 export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
+#### Configurações do container ####
 #Configuracoes do Flask (Validas somente para o container do docker)
 export FLASK_APP=app.py
 export FLASK_ENV=development
 
+#Inicialização do psql
+psql "sslmode=disable dbname=test user=root hostaddr=172.17.0."
+
 flask run --host=172.17.0.2
+
