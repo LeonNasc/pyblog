@@ -20,19 +20,8 @@ class Getman:
   def get_recents(self, amount=20):
     connection = self.db.get_connection('ro')  
     data = connection.get_data('1=1')
-
-    result = '('
-
-    for items in data:
-      result = result + "{"
-      for k,v in items.items():
-
-         result = result + '%s: %s,' % (k,v)
-
-      result = result + '}<br>'
-
-    result = result + ')'
-    return result
+    
+    return self.parser.to_json(data)
   
   def get_indexed(self, fro, to):
 
