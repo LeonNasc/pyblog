@@ -8,7 +8,7 @@ class DatabaseParser:
     def __init__(self):
       self.yey = 'yey'
 
-    def to_json(self, data):
+    def to_json(self, data,amount):
       result = "["
      
       for items in data:

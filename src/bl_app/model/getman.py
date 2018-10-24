@@ -8,20 +8,24 @@ class Getman:
   def __init__(self):
     self.parser = DatabaseParser()
     self.db = DatabaseManager.get_instance()
+    self.connection = self.db.get_connection('ro')  
 
   def get_uniqid(self,post_name):
-
-    return 'Test'
+    import re
+    regex = r'[0-9]+\Z'
+    id_getter = re.compile(regex)
+    return id_getter.findall(post_name)[0]
   
   def get_post(self, post_name):
-
-    return 'Test'
+    post_id = self.get_uniqid(post_name)
+    post = self.connection.get_data('post_id=%s'%post_id)
+    return self.parser.to_json(post) 
 
   def get_recents(self, amount=20):
-    connection = self.db.get_connection('ro')  
-    data = connection.get_data('1=1')
+    #pega todos os items
+    data = self.connection.get_data('1=1')
     
-    return self.parser.to_json(data)
+    return self.parser.to_json(data,amount)
   
   def get_indexed(self, fro, to):
 

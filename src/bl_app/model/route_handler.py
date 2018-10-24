@@ -36,8 +36,7 @@ class RouteHandler:
     return self.get_recent_posts()
 
   def get_post_by_id(self,post_name):
-    post_id = self.getman.get_uniqid(post_name)
-    return self.getman.get_post(post_id)
+    return self.getman.get_post(post_name)
     
   def get_posts_by_date(self,month,year):
     return self.getman.get_monthly_posts(month,year)

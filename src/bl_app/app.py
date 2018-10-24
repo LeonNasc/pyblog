@@ -21,16 +21,13 @@ def make_a_post():
 ########################## Rotas via GET ##############################  
 @app.route("/api/blog/posts/recent",methods=['GET'])
 def recents():
+
+  if (request.args.get('fro') and request.args.get('to')):
+    fro = request.args.get(fro)
+    to = request.args.get(to)
+    return rt.get_indexed_recents(fro,to)
+
   return rt.get_recent_posts()
-
-@app.route("/api/blog/posts/recent_<to_fro>",methods=['GET'])
-def indexed_recents(to_fro):
-  #get_indexed_recents indexa os posts por mais recente e retorna um slice
-  #com os indexes passados
-  separated = lambda x: x.split('_')
-  to,fro = separated(to_fro)
-
-  return rt.get_indexed_recents(fro,to)
 
 @app.route("/api/blog/posts/<mes>",methods=['GET'])
 def posts_by_month(mes):

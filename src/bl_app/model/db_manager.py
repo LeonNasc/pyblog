@@ -89,7 +89,7 @@ class Enquirer:
   def select_query(self, params):
     #método de seleção. Funciona com uma conexão 'ro' ou 'rw'
     #TODO: Transformar params em duplas 'chave=valor'
-    query = "SELECT * FROM %s WHERE %s;" % (self.DB_NAME, params)
+    query = "SELECT * FROM %s WHERE %s ORDER BY postado_em;" % (self.DB_NAME, params)
 
     return query
   
