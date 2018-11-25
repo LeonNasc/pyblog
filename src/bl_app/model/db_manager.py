@@ -113,10 +113,10 @@ class Enquirer:
     self.check_write_permission()
     #método de remoção. Funciona somente em conexões 'rw'
     #params é somente o id do post a ser removido
-    query = "DELETE FROM %s WHERE id=%s" % (self.DB_NAME,post_id)
+    query = "DELETE FROM %s WHERE post_id=%s" % (self.DB_NAME,post_id)
 
     return query
 
   def check_write_permission(self):
     if self.type == 'ro':
-      raise 'Not permitted'
+      raise 'Access method does not permit'

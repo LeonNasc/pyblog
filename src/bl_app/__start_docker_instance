@@ -1,3 +1,6 @@
-alias sdocker="sudo docker"
-sdocker run -it -p 5000:5000 -v ~/dev/pyblog/blog/src/bl_app:/project_files:rw  -v postgres-data:/var/lib/postgresql:rw workspace:vers4
+#!/bin/bash -i
 
+alias sdocker="sudo docker"
+volume='postgres-data:/var/lib/postgresql:rw'
+version='workspace:latest'
+sdocker run -it -p 5000:5000 -v ~/dev/pyblog/blog/src/bl_app:/project_files:rw -v $volume $version

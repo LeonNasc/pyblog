@@ -24,7 +24,7 @@ class Getman:
   def get_recents(self, amount=20):
     #pega todos os items
     data = self.connection.get_data('1=1')
-    
+    print(type(data))    
     return self.parser.to_json(data,amount)
   
   def get_indexed(self, fro, to):
