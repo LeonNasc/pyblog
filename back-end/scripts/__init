@@ -1,0 +1,16 @@
+#Inicializacao do venv
+source _venv/bin/activate
+#Configuracoes de linguagens da VM
+export LC_ALL=C.UTF-8
+export LANG=C.UTF-8
+#### Configurações do container ####
+#Configuracoes do Flask (Validas somente para o container do docker)
+export FLASK_APP=app.py
+export FLASK_ENV=development
+
+#Inicialização do psql
+service postgresql restart
+psql "sslmode=disable dbname=test user=root hostaddr=172.17.0.2" &
+
+flask run --host=172.17.0.2
+
