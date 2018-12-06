@@ -97,7 +97,9 @@ class Enquirer:
     self.check_write_permission()
     #método de inserção. Funciona somente em conexões 'rw'
     #TODO: Transformar params em duas longas strings de chaves e valores
-    query = "INSERT INTO %s (%s) VALUES (%s)" % (self.DB_NAME, param.keys, param.values)
+    keys = ','.join(param.keys)
+    values = ','.join(param.values)
+    query = "INSERT INTO %s (%s) VALUES (%s)" % (self.DB_NAME,keys,values)
   
     return query
 
@@ -119,4 +121,4 @@ class Enquirer:
 
   def check_write_permission(self):
     if self.type == 'ro':
-      raise 'Access method does not permit'
+      raise 'Access method does not permit this operation'

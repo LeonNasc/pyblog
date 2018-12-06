@@ -1,7 +1,7 @@
 *Ponto de entrada da api será denominado api*
 
 ##Create
-`api/v1/v1/blog/posts/new`
+`api/v1/blog/posts/new`
 
 Cria um post. Todo os posts seguirão uma nomenclatura `nome-do-post-id`,
 retornando um link acessível via GET.

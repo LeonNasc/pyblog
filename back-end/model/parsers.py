@@ -2,7 +2,6 @@
 #Fornece Parsers para os dados do blog
 # 19/10/18: Decidi que vou usar Markdown como linguagem de formatação do blog
 
-
 class DatabaseParser:
 
     def __init__(self):
@@ -20,3 +19,19 @@ class DatabaseParser:
         result = result + '},'
 
       return result+"{}]"
+
+    def get_uniqid(self,post_name):
+      import re
+      regex = r'(?<=_)[0-9]+\Z'
+      id_getter = re.compile(regex)
+
+      return id_getter.findall(post_name)[0]
+
+    def parse_titulo(self, titulo,id):
+      nonprint = list('áéíóúÁÉÍÓÚÀÁãõÃÕçÇ,.!?;:')
+
+      for char in nonprint:
+        if char in titulo:
+          titulo = titulo.replace(char,"")
+        
+      return "-".join(titulo.split(" ")[0:5]) + str(id)

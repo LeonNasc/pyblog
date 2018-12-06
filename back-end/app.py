@@ -5,6 +5,7 @@ from flask import Flask, request
 from model.route_handler import RouteHandler 
 
 app = Flask(__name__)
+# Permite abstrair o gerenciamento de rotas em outro objeto
 rt = RouteHandler()
 
 

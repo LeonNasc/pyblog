@@ -3,7 +3,7 @@
 from model.postman import Postman
 from model.getman import Getman
 
-API_ROUTE = 'api/blog/posts'
+API_ROUTE = 'api/v1/blog/posts'
 
 class RouteHandler:
   # classe que define as funções de rota
@@ -16,7 +16,7 @@ class RouteHandler:
   def make_new_post(self, data):
     #data é o valor de um form em um request para o Flask
     #write formata os dados de forma 'amigável' ao BD
-    data = self.postman.write(data) 
+    data = self.postman.isValidToken(data) 
     post_name = self.postman.post(data)
 
     return '%s/%s' % (API_ROUTE, post_name)
@@ -24,13 +24,15 @@ class RouteHandler:
   def edit_post(self, post_name, data):
     post_id = self.getman.get_uniqid(post_name)
 
-    updated_post = self.postman.write(data)
+    updated_post = self.postman.isValidToken(data)
+
     self.postman.rewrite(post_id, updated_post)
 
     return '%s/%s' % (API_ROUTE, post_name)
 
   def delete_post(self,post_name):
     post_id = self.getman.get_uniqid(post_name)
+
     self.postman.delete(post_id)
 
     return self.get_recent_posts()
