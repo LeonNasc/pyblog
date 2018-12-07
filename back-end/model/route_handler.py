@@ -16,17 +16,17 @@ class RouteHandler:
   def make_new_post(self, data):
     #data é o valor de um form em um request para o Flask
     #write formata os dados de forma 'amigável' ao BD
-    data = self.postman.isValidToken(data) 
-    post_name = self.postman.post(data)
+    if (self.postman.isValidToken(data)):
+      print(data)
+      post_name = self.postman.post(data)
 
     return '%s/%s' % (API_ROUTE, post_name)
 
   def edit_post(self, post_name, data):
     post_id = self.getman.get_uniqid(post_name)
 
-    updated_post = self.postman.isValidToken(data)
-
-    self.postman.rewrite(post_id, updated_post)
+    if (self.postman.isValidToken(data)):
+      post_name = self.postman.post(post_id, updated_post)
 
     return '%s/%s' % (API_ROUTE, post_name)
 

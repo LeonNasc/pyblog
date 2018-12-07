@@ -54,7 +54,7 @@ class ReadOnlyConnection:
     query = self.enquirer.select_query(params)
     return self.db.all(query,back_as = dict)
     
-class ReadWriteConnection:
+class ReadWriteConnection(ReadOnlyConnection):
   def __init__(self, database):
     self.type = 'rw'
     self.enquirer = Enquirer(self.type)
@@ -97,9 +97,9 @@ class Enquirer:
     self.check_write_permission()
     #método de inserção. Funciona somente em conexões 'rw'
     #TODO: Transformar params em duas longas strings de chaves e valores
-    keys = ','.join(param.keys)
-    values = ','.join(param.values)
-    query = "INSERT INTO %s (%s) VALUES (%s)" % (self.DB_NAME,keys,values)
+    keys = ','.join(params.keys())
+    values = "'"+ "','".join(params.values())+"'"
+    query = "INSERT INTO %s (%s,postado_em) VALUES (%s,NOW())" % (self.DB_NAME,keys,values)
   
     return query
 

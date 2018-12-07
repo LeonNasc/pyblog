@@ -17,7 +17,7 @@ def not_found(dummy):
 ########################## Rotas via POST ##############################  
 @app.route("/api/v1/blog/posts/new",methods=['POST'])
 def make_a_post():
-  data = request.data
+  data = request.get_json()
   return rt.make_new_post(data)
 
 ########################## Rotas via GET ##############################  

@@ -1,5 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+#python
+*.pyc
+
 # compiled output
 /dist
 /tmp
@@ -26,6 +29,10 @@
 
 #Virtual enviroment
 /venv
+.pyc
+
+# Arquivos de configuração
+src/bl_app/configs
 
 # misc
 /.sass-cache

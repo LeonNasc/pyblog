@@ -12,7 +12,7 @@ class Postman:
   def post(self, data):
 
     self.connection.post_data(data)
-    id_titulo = self.connection.get_data('titulo = %s' % data.titulo)
+    id_titulo = self.connection.get_data("titulo='%s'" % data['titulo'])
 
     return self.parser.parse_titulo(data.titulo,id_titulo)
  
@@ -26,11 +26,9 @@ class Postman:
     entrada de dados quanto para saída de dados. Aqui, eu utilizo o modelo 
     'postagem' para a passagem de dados '''
     post_schema = ('titulo','autor','conteudo','tags') 
-
     for attribute in post_schema:
       if attribute not in data.keys():
         return False
-
     return True
       
       
