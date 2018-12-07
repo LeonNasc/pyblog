@@ -12,7 +12,7 @@ class Postman:
   def post(self, data):
 
     self.connection.post_data(data)
-    id_titulo = self.connection.get_data("titulo='%s'" % data['titulo'])
+      id_titulo = self.connection.get_data("titulo="%s'" % data['titulo'])
 
     return self.parser.parse_titulo(data.titulo,id_titulo)
  
