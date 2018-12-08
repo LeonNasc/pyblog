@@ -2,24 +2,37 @@
 #Gerencia as ações CRUD do programa.
 from model.db_manager import DatabaseManager
 from model.parsers import DatabaseParser
+from model.mailman import Mailman
 
-class Postman:
+class Postman(Mailman):
   def __init__(self):
     self.parser = DatabaseParser()
     self.db = DatabaseManager.get_instance()
     self.connection = self.db.get_connection('rw')
   
-  def post(self, data):
-
+  def post_item(self, data):
+    #Permite gerar o link unico de cada post
+    link = self.parser.parse_titulo(data['titulo'],self._obtain_title_id(data['titulo']))
+    data['link'] = link
+    
     self.connection.post_data(data)
-      id_titulo = self.connection.get_data("titulo="%s'" % data['titulo'])
+    
+    return link
+  def edit_item(self,data):
 
-    return self.parser.parse_titulo(data.titulo,id_titulo)
+    self.connection.update_data(data)
+
+    return self.parser.parse_titulo(data['titulo'],self._obtain_title_id(data['titulo']))
  
-  def delete(self, titulo):
-    id_post = self.parser.get_uniqid(titulo)
-    self.connection.delete(id_post)
-    return post_name
+  def delete_item(self, titulo):
+    if (self.isValidPostId(titulo)):
+      self.connection.delete_data(self.parser.get_uniqid(titulo))
+
+    return True
+
+  def _obtain_title_id(self, titulo):
+
+    return self.connection.get_data("titulo='%s'" % titulo)
  
   def isValidToken(self, data):
     ''' Em docs/docs.md eu defino alguns tokens esperados de passagem, tanto para
@@ -30,6 +43,3 @@ class Postman:
       if attribute not in data.keys():
         return False
     return True
-      
-      
-   

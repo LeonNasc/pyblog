@@ -18,7 +18,7 @@ class RouteHandler:
     #write formata os dados de forma 'amigável' ao BD
     if (self.postman.isValidToken(data)):
       print(data)
-      post_name = self.postman.post(data)
+      post_name = self.postman.post_item(data)
 
     return '%s/%s' % (API_ROUTE, post_name)
 
@@ -26,16 +26,14 @@ class RouteHandler:
     post_id = self.getman.get_uniqid(post_name)
 
     if (self.postman.isValidToken(data)):
-      post_name = self.postman.post(post_id, updated_post)
+      post_name = self.postman.post_item(post_id, updated_post)
 
     return '%s/%s' % (API_ROUTE, post_name)
 
   def delete_post(self,post_name):
-    post_id = self.getman.get_uniqid(post_name)
-
-    self.postman.delete(post_id)
-
-    return self.get_recent_posts()
+    self.postman.delete_item(post_name)
+    recents = self.getman.get_recents(amount)
+    return recents 
 
   def get_post_by_id(self,post_name):
     return self.getman.get_post(post_name)

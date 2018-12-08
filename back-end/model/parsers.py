@@ -33,5 +33,7 @@ class DatabaseParser:
       for char in nonprint:
         if char in titulo:
           titulo = titulo.replace(char,"")
-        
-      return "-".join(titulo.split(" ")[0:5]) + str(id)
+
+      titulo = "-".join(titulo.split(" ")[0:5]) + "_"+str(id) 
+
+      return titulo.lower()

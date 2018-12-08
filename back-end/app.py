@@ -60,6 +60,6 @@ def edit_post(post_id):
   return rt.edit_post(post_id)
 
 ######################### Rotas via DELETE ##############################  
-@app.route("/api/v1/blog/posts/_<post_id>/edit",methods=['DELETE'])
+@app.route("/api/v1/blog/posts/_<post_id>/delete",methods=['DELETE'])
 def delete_post(post_id):
   return rt.delete_post(post_id)
