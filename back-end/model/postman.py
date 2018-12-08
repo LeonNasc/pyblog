@@ -27,12 +27,14 @@ class Postman(Mailman):
   def delete_item(self, titulo):
     if (self.isValidPostId(titulo)):
       self.connection.delete_data(self.parser.get_uniqid(titulo))
+    else:
+      raise 'Não foi possível deletar o post'
 
     return True
 
   def _obtain_title_id(self, titulo):
 
-    return self.connection.get_data("titulo='%s'" % titulo)
+    return self.connection.get_data("titulo='%s'" % titulo)[0]
  
   def isValidToken(self, data):
     ''' Em docs/docs.md eu defino alguns tokens esperados de passagem, tanto para

@@ -32,7 +32,7 @@ class RouteHandler:
 
   def delete_post(self,post_name):
     self.postman.delete_item(post_name)
-    recents = self.getman.get_recents(amount)
+    recents = self.get_recent_posts()
     return recents 
 
   def get_post_by_id(self,post_name):
