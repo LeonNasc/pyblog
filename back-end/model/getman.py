@@ -17,8 +17,8 @@ class Getman:
 
   def get_recents(self, amount=20):
     #pega todos os items
-    data = self.connection.get_data('1=1')
-    print(type(data))    
+    data = self.connection.get_data('1=1')[:amount]
+    
     return self.parser.to_json(data,amount)
   
   def get_indexed(self,fro,to):
@@ -27,5 +27,6 @@ class Getman:
     return self.parser.to_json(data)
 
   def get_monthly_posts(self, month, year):
-
-      return 'Test'
+      query = "EXTRACT(MONTH FROM postado_em) = %s AND EXTRACT(YEAR FROM postado_em)=%s "%(month,year)
+      data = self.connection.get_data(query)
+      return self.parser.to_json(data)

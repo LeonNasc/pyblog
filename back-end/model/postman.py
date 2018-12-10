@@ -1,5 +1,6 @@
 #encoding:utf-8
 #Gerencia as ações CRUD do programa.
+
 from model.db_manager import DatabaseManager
 from model.parsers import DatabaseParser
 from model.mailman import Mailman
