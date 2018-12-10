@@ -1,5 +1,6 @@
 #encoding:utf-8
 #Implementa todas as funções GET da API
+
 from model.db_manager import DatabaseManager
 from model.parsers import DatabaseParser
 
