@@ -20,7 +20,7 @@ class Getman:
     #pega todos os items
     data = self.connection.get_data('1=1')[:amount]
     
-    return self.parser.to_json(data,amount)
+    return self.parser.to_json(data)
   
   def get_indexed(self,fro,to):
     data = self.connection.get_data('post_id>= %s AND post_id <=%s'% (fro,to))

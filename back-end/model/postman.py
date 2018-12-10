@@ -13,12 +13,15 @@ class Postman(Mailman):
   
   def post_item(self, data):
     #Permite gerar o link unico de cada post
-    link = self.parser.parse_titulo(data['titulo'],self._obtain_title_id(data['titulo']))
-    data['link'] = link
-    
     self.connection.post_data(data)
+    link = self.parser.parse_titulo(data['titulo'],self._obtain_title_id(data['titulo']))
     
+    #Provavelmente é a pior solução possível reescrever após a inserção
+    data['link'] = link
+    self.connection.update_data(data) 
+
     return link
+
   def edit_item(self,data):
 
     self.connection.update_data(data)
@@ -26,16 +29,18 @@ class Postman(Mailman):
     return self.parser.parse_titulo(data['titulo'],self._obtain_title_id(data['titulo']))
  
   def delete_item(self, titulo):
-    if (self.isValidPostId(titulo)):
+#    if (self.isValidPostId(titulo)):
       self.connection.delete_data(self.parser.get_uniqid(titulo))
-    else:
-      raise 'Não foi possível deletar o post'
+#    else:
+#      raise 'Não foi possível deletar o post'
 
-    return True
+#    return True
 
   def _obtain_title_id(self, titulo):
-
-    return self.connection.get_data("titulo='%s'" % titulo)[0]
+    try: 
+        return self.connection.get_data("titulo='%s'" % titulo)['post_id']
+    except:
+        return 0
  
   def isValidToken(self, data):
     ''' Em docs/docs.md eu defino alguns tokens esperados de passagem, tanto para

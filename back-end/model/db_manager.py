@@ -25,13 +25,13 @@ class DatabaseManager:
     return conn_strat.get_connection()
 
 class ConnectionStrategy:
-  #É uma classe que utiliza o padrão Strategy para definir objetos
-  #que vão efetivamente lidar com o banco de dados
+  '''É uma classe que utiliza o padrão Strategy para definir objetos
+  que vão efetivamente lidar com o banco de dados'''
 
   def __init__(self, strategy):
 
     db = Postgres('host=172.17.0.2 port=5432 dbname=test connect_timeout=10')
-   #db = Postgres('172.17.0.2:5432') #IP do BD no container atual. Deve mudar no deploy.
+   #IP do BD no container atual. Deve mudar no deploy.
 
     if strategy == 'ro':
       #Somente serve para os acessos que usam o método GET
@@ -77,8 +77,6 @@ class ReadWriteConnection(ReadOnlyConnection):
 
 class Enquirer:
   #lida somente com a montagem de consultas ao BD
-  #TODO: Formatação para todas as consultas
-
 
   def __init__(self, access_type):
     self.type = access_type
@@ -107,7 +105,13 @@ class Enquirer:
     self.check_write_permission()
     #método de atualização. Funciona soemnte em conexões 'rw'
     #TODO: Destrinchar os dados de params para o query 
-    query = "UPDATE %s SET %s WHERE %s" % (self.DB_NAME,changes, uniqid)
+    changes = ''
+    for key in params.keys():
+       changes = key + "=" + params[key] + ","
+
+    changes = ''.join(list(changes)[:-1])
+
+    query = "UPDATE %s SET %s WHERE post_id= %s" % (self.DB_NAME,changes, params['post_id'])
 
     return query
     
