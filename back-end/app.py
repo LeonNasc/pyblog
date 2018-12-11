@@ -21,11 +21,11 @@ def make_a_post():
   return rt.make_new_post(data)
 
 ########################## Rotas via GET ##############################  
-@app.route("/api/v1/blog/posts/recent",methods=['GET'])
+@app.route("/api/v1/blog/posts/recents",methods=['GET'])
 def recents():
     return rt.get_recent_posts()
 
-@app.route("/api/v1/blog/posts/recent_<fro>_<to>",methods=['GET'])
+@app.route("/api/v1/blog/posts/recents_<fro>_<to>",methods=['GET'])
 def indexed_recents(fro,to):
        #Paginação padrão
        return rt.get_indexed_recents(fro,to)
@@ -43,23 +43,32 @@ def posts_by_month(mes):
   #Assume que o ano atual deseja ser buscado
   ano = dt.datetime.now().year
 
-  return rt.get_posts_by_date(mes,ano)
+  return rt.get_posts_by_date(meses.index(mes)+1,ano)
 
 @app.route("/api/v1/blog/posts/<mes>/<ano>",methods=['GET'])
 def posts_by_month_year(mes,ano):
   #return rt.get_posts_by_month(mes)
   return rt.get_posts_by_date(mes,ano)
 
-@app.route("/api/v1/blog/posts/_<post_id>",methods=['GET'])
+@app.route("/api/v1/blog/posts/view/<post_id>",methods=['GET'])
 def posts_by_id(post_id):
-  return rt.get_post_by_id(post_id)
+  try:
+      return rt.get_post_by_id(post_id)
+  except:
+      return not_found('view/%s'% post_id)
 
 ######################### Rotas via PUT ##############################  
-@app.route("/api/v1/blog/posts/_<post_id>/edit",methods=['PUT'])
+@app.route("/api/v1/blog/posts/view/<post_id>/edit",methods=['PUT'])
 def edit_post(post_id):
-  return rt.edit_post(post_id)
+  try:
+      return rt.edit_post(post_id)
+  except:
+      return not_found('view/%s'% post_id)
 
 ######################### Rotas via DELETE ##############################  
-@app.route("/api/v1/blog/posts/_<post_id>/delete",methods=['DELETE'])
+@app.route("/api/v1/blog/posts/view/<post_id>/delete",methods=['DELETE'])
 def delete_post(post_id):
-  return rt.delete_post(post_id)
+  try:
+      return rt.delete_post(post_id)
+  except:
+      return not_found('view/%s'% post_id)
