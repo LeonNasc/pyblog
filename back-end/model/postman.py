@@ -26,12 +26,12 @@ class Postman(Mailman):
     return self.parser.parse_titulo(data['titulo'],self._obtain_title_id(data['titulo']))
  
   def delete_item(self, titulo):
-#    if (self.isValidPostId(titulo)):
+    if (self.isValidPostId(titulo)):
       self.connection.delete_data(self.parser.get_uniqid(titulo))
-#    else:
-#      raise 'Não foi possível deletar o post'
+    else:
+      raise 'Não foi possível deletar o post'
 
-#    return True
+    return True
 
   def _obtain_title_id(self):
       return self.connection.get_max_index()+ 1

@@ -8,7 +8,7 @@ class DatabaseParser:
       self.yey = 'yey'
 
     def to_json(self, data):
-      result = "["
+      result = "{'posts':"
      
       for items in data:
         result = result + "{"
@@ -18,7 +18,7 @@ class DatabaseParser:
 
         result = result + '}'
 
-      return result+']\n'
+      return result+'}\n'
 
     def get_uniqid(self,post_name):
       import re
