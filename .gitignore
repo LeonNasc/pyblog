@@ -2,6 +2,7 @@
 
 #python
 *.pyc
+*.swp
 
 # compiled output
 /dist
