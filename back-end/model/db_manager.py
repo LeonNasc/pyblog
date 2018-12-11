@@ -32,6 +32,7 @@ class ConnectionStrategy:
 
     db = Postgres('host=172.17.0.2 port=5432 dbname=test connect_timeout=10')
    #IP do BD no container atual. Deve mudar no deploy.
+   #TODO: Parametrizar dados de conexão
 
     if strategy == 'ro':
       #Somente serve para os acessos que usam o método GET
@@ -48,6 +49,10 @@ class ReadOnlyConnection:
     self.type = 'ro'
     self.enquirer = Enquirer(self.type)
     self.db = database
+
+  def get_max_index(self):
+      query = self.enquirer.max_id_query()
+      return self.db.one(query)
 
   def get_data(self, params):
     # método de somente leitura. O enquirer monta as queries e passa como params
@@ -81,6 +86,11 @@ class Enquirer:
   def __init__(self, access_type):
     self.type = access_type
     self.DB_NAME = 'posts'
+
+  def max_id_query(self):
+      query = "SELECT MAX(post_id) FROM %s;" % self.DB_NAME
+
+      return query
 
   ######## Em todos os métodos abaixo, params é dict ########
 

@@ -13,13 +13,10 @@ class Postman(Mailman):
   
   def post_item(self, data):
     #Permite gerar o link unico de cada post
-    self.connection.post_data(data)
-    link = self.parser.parse_titulo(data['titulo'],self._obtain_title_id(data['titulo']))
-    
-    #Provavelmente é a pior solução possível reescrever após a inserção
+    link = self.parser.parse_titulo(data['titulo'],self._obtain_title_id())
     data['link'] = link
-    self.connection.update_data(data) 
 
+    self.connection.post_data(data)
     return link
 
   def edit_item(self,data):
@@ -36,11 +33,8 @@ class Postman(Mailman):
 
 #    return True
 
-  def _obtain_title_id(self, titulo):
-    try: 
-        return self.connection.get_data("titulo='%s'" % titulo)['post_id']
-    except:
-        return 0
+  def _obtain_title_id(self):
+      return self.connection.get_max_index()+ 1
  
   def isValidToken(self, data):
     ''' Em docs/docs.md eu defino alguns tokens esperados de passagem, tanto para
