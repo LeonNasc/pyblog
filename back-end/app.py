@@ -17,7 +17,11 @@ def not_found(dummy):
 ########################## Rotas via POST ##############################  
 @app.route("/api/v1/blog/posts/new",methods=['POST'])
 def make_a_post():
-  data = request.get_json()
+  data = dict(request.form)
+
+  for _input_ in data:
+      data[_input_] = data[_input_][0] 
+
   return rt.make_new_post(data)
 
 ########################## Rotas via GET ##############################  

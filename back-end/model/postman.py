@@ -41,6 +41,7 @@ class Postman(Mailman):
     entrada de dados quanto para saída de dados. Aqui, eu utilizo o modelo 
     'postagem' para a passagem de dados '''
     post_schema = ('titulo','autor','conteudo','tags') 
+    
     for attribute in post_schema:
       if attribute not in data.keys():
         return False
