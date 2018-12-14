@@ -24,7 +24,7 @@ export class FormPostComponent implements OnInit {
   ngHttpTest(){
 	let url = 'http://172.17.0.2:5000/api/v1/blog/posts/recents';
 	let test = this.http.get(url);
-	test.subscribe((data) =>this.test = data);
+	test.subscribe((data) =>this.test = data['posts']);
   }
 
   //Envia um post para o servidor usando o Http service.
