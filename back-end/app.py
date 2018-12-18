@@ -1,13 +1,14 @@
 #encoding:utf-8
 #Ponto de entrada do sistema. Serve como dispatcher das rotas
 
-from flask import Flask, request
+from flask import Flask, request, Response
+from flask_cors import CORS
 from model.route_handler import RouteHandler 
 
 app = Flask(__name__)
 # Permite abstrair o gerenciamento de rotas em outro objeto
 rt = RouteHandler()
-
+CORS(app)
 
 ################## Rotas que não fazem parte da API #####################
 @app.route("/<path:dummy>", methods=['POST','GET','PUT','DELETE'])
@@ -17,17 +18,15 @@ def not_found(dummy):
 ########################## Rotas via POST ##############################  
 @app.route("/api/v1/blog/posts/new",methods=['POST'])
 def make_a_post():
-  data = dict(request.form)
-
-  for _input_ in data:
-      data[_input_] = data[_input_][0] 
-
+  data = dict(request.json)
   return rt.make_new_post(data)
 
 ########################## Rotas via GET ##############################  
 @app.route("/api/v1/blog/posts/recents",methods=['GET'])
 def recents():
-    return rt.get_recent_posts()
+    resp = Response(rt.get_recent_posts())
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp 
 
 @app.route("/api/v1/blog/posts/recents_<fro>_<to>",methods=['GET'])
 def indexed_recents(fro,to):
@@ -51,7 +50,6 @@ def posts_by_month(mes):
 
 @app.route("/api/v1/blog/posts/<mes>/<ano>",methods=['GET'])
 def posts_by_month_year(mes,ano):
-  #return rt.get_posts_by_month(mes)
   return rt.get_posts_by_date(mes,ano)
 
 @app.route("/api/v1/blog/posts/view/<post_id>",methods=['GET'])
@@ -76,3 +74,4 @@ def delete_post(post_id):
       return rt.delete_post(post_id)
   except:
       return not_found('view/%s'% post_id)
+

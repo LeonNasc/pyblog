@@ -45,4 +45,5 @@ class Postman(Mailman):
     for attribute in post_schema:
       if attribute not in data.keys():
         return False
+
     return True

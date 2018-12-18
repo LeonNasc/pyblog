@@ -17,10 +17,10 @@ class RouteHandler:
     #data é o valor de um form em um request para o Flask
     #write formata os dados de forma 'amigável' ao BD
     if (self.postman.isValidToken(data)):
-      print(data)
       post_name = self.postman.post_item(data)
-
-    return '%s/%s' % (API_ROUTE, post_name)
+      return '%s/%s' % (API_ROUTE, post_name)
+    else:
+     return '{"error": "Token Inválido"}' 
 
   def edit_post(self, post_name, data):
     post_id = self.getman.get_uniqid(post_name)
