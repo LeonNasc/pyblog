@@ -9,6 +9,7 @@ import { HeaderComponent } from './header/header.component';
 import { ContentComponent } from './content/content.component';
 import { MainComponent } from './main/main.component';
 import { FormPostComponent } from './form-post/form-post.component';
+import { EditFormComponent } from './edit-form/edit-form.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { FormPostComponent } from './form-post/form-post.component';
     ContentComponent,
     MainComponent,
     FormPostComponent,
+    EditFormComponent,
   ],
   imports: [
     BrowserModule, HttpClientModule,FormsModule
