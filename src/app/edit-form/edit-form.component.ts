@@ -8,17 +8,17 @@ import { PostableComponent } from '../postable/postable.component';
   templateUrl: './edit-form.component.html',
   styleUrls: ['./edit-form.component.css']
 })
-export class EditFormComponent implements OnInit extends PostableComponent {
+export class EditFormComponent extends PostableComponent implements OnInit{
 
-  constructor(private http:HttpClient,private enquirer:EnquirerService) { }
+  constructor(private http:HttpClient,private enquirer:EnquirerService) { super() }
 
   ngOnInit() {
   }
 
   sendEditForm(){
   
-  httpOptions = this.enquirer.ngSetHeaders();
-  schema = this.ngDefineSchema();
+  let httpOptions = this.enquirer.ngSetHeaders();
+  let schema = this.ngDefineSchema();
 
   if(this.isValidSchema(schema)){
 	this.http.put(this.base_url+"posts/new",schema,httpOptions).subscribe((data) => console.log(data))

@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class PostableComponent{
 
-  private base_url = 'http://172.17.0.2:5000/api/v1/blog/';
+  protected base_url = 'http://172.17.0.2:5000/api/v1/blog/';
   autor:string = ''
   titulo:string = ''
   conteudo:string = ''
