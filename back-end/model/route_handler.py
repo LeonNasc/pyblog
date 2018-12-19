@@ -18,7 +18,7 @@ class RouteHandler:
     #write formata os dados de forma 'amigável' ao BD
     if (self.postman.isValidToken(data)):
       post_name = self.postman.post_item(data)
-      return '%s/%s' % (API_ROUTE, post_name)
+      return '%s/view/%s' % (API_ROUTE, post_name)
     else:
      return '{"error": "Token Inválido"}' 
 
@@ -28,7 +28,7 @@ class RouteHandler:
     if (self.postman.isValidToken(data)):
       post_name = self.postman.post_item(post_id, updated_post)
 
-    return '%s/%s' % (API_ROUTE, post_name)
+    return '%s/view/%s' % (API_ROUTE, post_name)
 
   def delete_post(self,post_name):
     self.postman.delete_item(post_name)
