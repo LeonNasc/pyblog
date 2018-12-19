@@ -1,21 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
+import { PostableComponent } from '../postable/postable.component';
+import { EnquirerService } from '../enquirer.service';
 
 @Component({
   selector: 'app-form-post',
   templateUrl: './form-post.component.html',
   styleUrls: ['./form-post.component.css']
 })
-export class FormPostComponent {
+export class FormPostComponent extends PostableComponent {
 	
   // Todos os inputs do formulário são two-way binded a estas variaveis
-  autor = '';
-  titulo = '';
-  conteudo = '';
-  tags= '';
-  private base_url = 'http://172.17.0.2:5000/api/v1/blog/';
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient,private enquirer:EnquirerService) { }
 
   ngHttpTest(){
 	let test = this.http.get(this.base_url+"posts/recents");
