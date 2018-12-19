@@ -62,9 +62,11 @@ def posts_by_id(post_id):
 ######################### Rotas via PUT ##############################  
 @app.route("/api/v1/blog/posts/view/<post_id>/edit",methods=['PUT'])
 def edit_post(post_id):
+  data = dict(request.json)
   try:
-      return rt.edit_post(post_id)
-  except:
+      return rt.edit_post(post_id,data)
+  except Exception as e:
+      print("WTF:",str(e))
       return not_found('view/%s'% post_id)
 
 ######################### Rotas via DELETE ##############################  

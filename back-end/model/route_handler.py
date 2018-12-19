@@ -2,6 +2,7 @@
 #Lida com o gerenciamento de rotas, despachando os responsáveis conforme o método HTTP
 from model.postman import Postman
 from model.getman import Getman
+from model.parsers import DatabaseParser
 
 API_ROUTE = 'api/v1/blog/posts'
 
@@ -23,10 +24,11 @@ class RouteHandler:
      return '{"error": "Token Inválido"}' 
 
   def edit_post(self, post_name, data):
-    post_id = self.getman.get_uniqid(post_name)
+    parser = DatabaseParser()
+    post_id = parser.get_uniqid(post_name)
 
     if (self.postman.isValidToken(data)):
-      post_name = self.postman.post_item(post_id, updated_post)
+        post_name = self.postman.edit_item(data)
 
     return '%s/view/%s' % (API_ROUTE, post_name)
 
