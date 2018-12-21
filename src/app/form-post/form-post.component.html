@@ -1,0 +1,18 @@
+	<form id="novo-post" ACTION="http://172.17.0.2:5000/api/v1/blog/posts/new" METHOD="POST">
+		<section>
+		<legend> Post Form</legend>
+		<label for="autor"> Autor</label>
+		<input type="text" [(ngModel)]="autor" name="autor">
+
+		<label for="autor">Titulo</label>
+		<input type="text" [(ngModel)]='titulo'name="titulo">
+
+		<label for="autor">Conteudo</label>
+		<input type="text" [(ngModel)]='conteudo' name="conteudo">
+
+		<label for="autor"> tags</label>
+		<input type="text" [(ngModel)]='tags' name="tags">
+
+		<button (click)='sendPostForm()'>Enviar Post</button>
+		</section>
+	</form>

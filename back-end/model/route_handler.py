@@ -2,8 +2,9 @@
 #Lida com o gerenciamento de rotas, despachando os responsáveis conforme o método HTTP
 from model.postman import Postman
 from model.getman import Getman
+from model.parsers import DatabaseParser
 
-API_ROUTE = 'api/blog/posts'
+API_ROUTE = 'api/v1/blog/posts'
 
 class RouteHandler:
   # classe que define as funções de rota
@@ -16,24 +17,25 @@ class RouteHandler:
   def make_new_post(self, data):
     #data é o valor de um form em um request para o Flask
     #write formata os dados de forma 'amigável' ao BD
-    data = self.postman.write(data) 
-    post_name = self.postman.post(data)
-
-    return '%s/%s' % (API_ROUTE, post_name)
+    if (self.postman.isValidToken(data)):
+      post_name = self.postman.post_item(data)
+      return '%s/view/%s' % (API_ROUTE, post_name)
+    else:
+     return '{"error": "Token Inválido"}' 
 
   def edit_post(self, post_name, data):
-    post_id = self.getman.get_uniqid(post_name)
+    parser = DatabaseParser()
+    post_id = parser.get_uniqid(post_name)
 
-    updated_post = self.postman.write(data)
-    self.postman.rewrite(post_id, updated_post)
+    if (self.postman.isValidToken(data)):
+        post_name = self.postman.edit_item(data)
 
-    return '%s/%s' % (API_ROUTE, post_name)
+    return '%s/view/%s' % (API_ROUTE, post_name)
 
   def delete_post(self,post_name):
-    post_id = self.getman.get_uniqid(post_name)
-    self.postman.delete(post_id)
-
-    return self.get_recent_posts()
+    self.postman.delete_item(post_name)
+    recents = self.get_recent_posts()
+    return recents 
 
   def get_post_by_id(self,post_name):
     return self.getman.get_post(post_name)

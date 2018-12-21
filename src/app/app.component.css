@@ -1,1 +1,30 @@
+/* Folha de estilos para o layout principal do blog */
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
 
+/* 1) Layout full */
+@media (min-width: 768px) {
+
+	app-header{
+	width:100vw;
+	height: 10em;
+	display:block;
+	}
+
+	app-sidebar{
+	float:left;
+	border-right:1px solid #dedede;
+	min-height:90vh;
+	padding:1%;
+	display:block;
+	margin-right:2%;
+	}
+
+	router-outlet{
+	padding:2%;
+	width:70vw;
+	}
+}

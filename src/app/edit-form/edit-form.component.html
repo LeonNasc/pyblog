@@ -1,0 +1,19 @@
+<!--TODO: Dinamicamente obter o id da pagina -->
+<form id="editar-post">
+	<section>
+		<legend> Edit Form</legend>
+		<label for="autor"> Autor</label>
+		<input type="text" [(ngModel)]="autor" name="autor">
+
+		<label for="autor">Titulo</label>
+		<input type="text" [(ngModel)]='titulo'name="titulo">
+
+		<label for="autor">Conteudo</label>
+		<input type="text" [(ngModel)]='conteudo' name="conteudo">
+
+		<label for="autor"> tags</label>
+		<input type="text" [(ngModel)]='tags' name="tags">
+
+		<button (click)='sendEditForm()'>Teste HTTP de edição</button>
+	</section>
+	</form>

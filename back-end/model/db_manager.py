@@ -25,13 +25,14 @@ class DatabaseManager:
     return conn_strat.get_connection()
 
 class ConnectionStrategy:
-  #É uma classe que utiliza o padrão Strategy para definir objetos
-  #que vão efetivamente lidar com o banco de dados
+  '''É uma classe que utiliza o padrão Strategy para definir objetos
+  que vão efetivamente lidar com o banco de dados'''
 
   def __init__(self, strategy):
 
     db = Postgres('host=172.17.0.2 port=5432 dbname=test connect_timeout=10')
-   #db = Postgres('172.17.0.2:5432') #IP do BD no container atual. Deve mudar no deploy.
+   #IP do BD no container atual. Deve mudar no deploy.
+   #TODO: Parametrizar dados de conexão
 
     if strategy == 'ro':
       #Somente serve para os acessos que usam o método GET
@@ -49,12 +50,16 @@ class ReadOnlyConnection:
     self.enquirer = Enquirer(self.type)
     self.db = database
 
+  def get_max_index(self):
+      query = self.enquirer.max_id_query()
+      return self.db.one(query)
+
   def get_data(self, params):
     # método de somente leitura. O enquirer monta as queries e passa como params
     query = self.enquirer.select_query(params)
     return self.db.all(query,back_as = dict)
     
-class ReadWriteConnection:
+class ReadWriteConnection(ReadOnlyConnection):
   def __init__(self, database):
     self.type = 'rw'
     self.enquirer = Enquirer(self.type)
@@ -77,12 +82,15 @@ class ReadWriteConnection:
 
 class Enquirer:
   #lida somente com a montagem de consultas ao BD
-  #TODO: Formatação para todas as consultas
-
 
   def __init__(self, access_type):
     self.type = access_type
     self.DB_NAME = 'posts'
+
+  def max_id_query(self):
+      query = "SELECT MAX(post_id) FROM %s;" % self.DB_NAME
+
+      return query
 
   ######## Em todos os métodos abaixo, params é dict ########
 
@@ -97,7 +105,9 @@ class Enquirer:
     self.check_write_permission()
     #método de inserção. Funciona somente em conexões 'rw'
     #TODO: Transformar params em duas longas strings de chaves e valores
-    query = "INSERT INTO %s (%s) VALUES (%s)" % (self.DB_NAME, param.keys, param.values)
+    keys = ','.join(params.keys())
+    values = "'"+ "','".join(params.values())+"'"
+    query = "INSERT INTO %s (%s,postado_em) VALUES (%s,NOW())" % (self.DB_NAME,keys,values)
   
     return query
 
@@ -105,7 +115,13 @@ class Enquirer:
     self.check_write_permission()
     #método de atualização. Funciona soemnte em conexões 'rw'
     #TODO: Destrinchar os dados de params para o query 
-    query = "UPDATE %s SET %s WHERE %s" % (self.DB_NAME,changes, uniqid)
+    changes = ''
+    for key in params.keys():
+       changes = key + "=" + params[key] + ","
+
+    changes = ''.join(list(changes)[:-1])
+
+    query = "UPDATE %s SET %s WHERE post_id= %s" % (self.DB_NAME,changes, params['post_id'])
 
     return query
     
@@ -119,4 +135,4 @@ class Enquirer:
 
   def check_write_permission(self):
     if self.type == 'ro':
-      raise 'Access method does not permit'
+      raise 'Access method does not permit this operation'
