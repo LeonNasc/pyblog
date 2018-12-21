@@ -16,6 +16,7 @@ import { HomeModuleComponent } from './home-module/home-module.component';
 import { PostViewComponent } from './post-view/post-view.component';
 import { AdminSuiteComponent } from './admin-suite/admin-suite.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PostListComponent } from './post-list/post-list.component';
 
 //As rotas da aplicação
 const appRoutes: Routes = [
@@ -30,6 +31,10 @@ const appRoutes: Routes = [
     redirectTo: '/home',
     pathMatch: 'full'
   },
+	{path:'test/post_form', component: FormPostComponent},
+	{path:'test/edit_form', component: EditFormComponent},
+	{path:'test/populate_post', component: PostViewComponent},
+	{path:'test/populate_list', component: PostListComponent},
   { path: '**', component: PageNotFoundComponent }
 ]
 
@@ -47,6 +52,7 @@ const appRoutes: Routes = [
     PostViewComponent,
     AdminSuiteComponent,
     PageNotFoundComponent,
+    PostListComponent,
   ],
   imports: [
     RouterModule.forRoot(appRoutes,{ enableTracing: true }) // <-- debugging purposes only
