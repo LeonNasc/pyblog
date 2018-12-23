@@ -26,6 +26,7 @@ class RouteHandler:
   def edit_post(self, post_name, data):
     parser = DatabaseParser()
     post_id = parser.get_uniqid(post_name)
+    data['post_id'] = post_id
 
     if (self.postman.isValidToken(data)):
         post_name = self.postman.edit_item(data)

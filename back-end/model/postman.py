@@ -23,7 +23,7 @@ class Postman(Mailman):
 
     self.connection.update_data(data)
 
-    return self.parser.parse_titulo(data['titulo'],self._obtain_title_id(data['titulo']))
+    return self.parser.parse_titulo(data['titulo'],data['post_id'])
  
   def delete_item(self, titulo):
     if (self.isValidPostId(titulo)):

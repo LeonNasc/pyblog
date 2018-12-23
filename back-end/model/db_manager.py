@@ -117,12 +117,12 @@ class Enquirer:
     #TODO: Destrinchar os dados de params para o query 
     changes = ''
     for key in params.keys():
-       changes = key + "=" + params[key] + ","
+       changes = changes +  key + "='" + params[key] + "',"
 
+    #remove a ultima virgula
     changes = ''.join(list(changes)[:-1])
 
     query = "UPDATE %s SET %s WHERE post_id= %s" % (self.DB_NAME,changes, params['post_id'])
-
     return query
     
   def delete_query(self, post_id):
