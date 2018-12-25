@@ -2,28 +2,20 @@
 #Fornece Parsers para os dados do blog
 # 19/10/18: Decidi que vou usar Markdown como linguagem de formatação do blog
 
+import json
+
 class DatabaseParser:
 
     def __init__(self):
       self.yey = 'yey'
 
     def to_json(self, data):
-      result = r'{"posts":{"0":'
      
-      for i in range(len(data)):
-        items = data[i]
-        
-        if i != 0:
-            result = result + ',"' + str(i) + '":{' 
-        else:
-            result = result + "{"
-
-        for k, v in items.items():
-          result = result + '"%s":"%s",' % (k, v)
-
-        result = result[:-1] + '}'
-
-      return result+'}}'
+      for post in data:
+        post['postado_em'] = str(post['postado_em'])
+        post['editado_em'] = str(post['editado_em'])
+            
+      return json.dumps(data) 
 
     def get_uniqid(self,post_name):
       import re

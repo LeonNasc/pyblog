@@ -3,7 +3,7 @@ import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { FormsModule } from "@angular/forms";
 import { RouterModule, Routes } from "@angular/router";
-import { SimplemdeModule, SIMPLEMDE_CONFIG } from "ng2-simplemde/no-style";
+import { SimplemdeModule, SIMPLEMDE_CONFIG } from 'ng2-simplemde/no-style';
 import { MarkdownModule } from "ngx-markdown";
 
 // Componentes
