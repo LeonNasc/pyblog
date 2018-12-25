@@ -9,6 +9,7 @@
 		<input type="text" [(ngModel)]='titulo'name="titulo">
 
 		<simplemde [(ngModel)]='conteudo' [ngModelOptions]="{standalone: true}"></simplemde>
+
 		<label for="autor"> tags</label>
 		<input type="text" [(ngModel)]='tags' name="tags">
 
@@ -20,7 +21,6 @@
 		<div class="card-body">
 			<h3 class="card-title"> {{titulo}} </h3>
 			<hr>
-			<!--<div class="card-content"><markdown ngPreserveWhitespaces> {{conteudo}}</markdown> </div>-->
 			<div markdown [data]="conteudo" class="card-content"></div>
 		</div>
 	</div>

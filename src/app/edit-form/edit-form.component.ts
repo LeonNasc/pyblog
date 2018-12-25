@@ -18,9 +18,7 @@ export class EditFormComponent extends PostableComponent implements OnInit{
 	  let data_fetched = <any>{};
 	  this.http.get(this.base_url+"posts/view/testando-services-do-angular_60").subscribe((data)=> 
 		  {
-			  if(data.hasOwnProperty("posts")){
-				data_fetched =  data['posts'][0];
-			  }
+			data_fetched =  data[0];
 			this.autor = data_fetched.autor;
 			this.titulo = data_fetched.titulo;
 			this.conteudo = data_fetched.conteudo;
