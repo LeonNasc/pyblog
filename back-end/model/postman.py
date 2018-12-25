@@ -20,10 +20,12 @@ class Postman(Mailman):
     return link
 
   def edit_item(self,data):
+    link = self.parser.parse_titulo(data['titulo'],data['post_id'])
+    data['link'] = link
 
     self.connection.update_data(data)
 
-    return self.parser.parse_titulo(data['titulo'],self._obtain_title_id(data['titulo']))
+    return link
  
   def delete_item(self, titulo):
     if (self.isValidPostId(titulo)):

@@ -104,11 +104,10 @@ class Enquirer:
   def insert_query(self, params):
     self.check_write_permission()
     #método de inserção. Funciona somente em conexões 'rw'
-    #TODO: Transformar params em duas longas strings de chaves e valores
     keys = ','.join(params.keys())
     values = "'"+ "','".join(params.values())+"'"
     query = "INSERT INTO %s (%s,postado_em) VALUES (%s,NOW())" % (self.DB_NAME,keys,values)
-  
+    print(query) 
     return query
 
   def update_query(self, params):
@@ -117,7 +116,7 @@ class Enquirer:
     #TODO: Destrinchar os dados de params para o query 
     changes = ''
     for key in params.keys():
-       changes = key + "=" + params[key] + ","
+       changes = changes + key + "='" + params[key] + "',"
 
     changes = ''.join(list(changes)[:-1])
 

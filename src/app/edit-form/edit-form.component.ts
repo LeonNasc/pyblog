@@ -33,7 +33,7 @@ export class EditFormComponent extends PostableComponent implements OnInit{
   let schema = this.ngDefineSchema();
 
   if(this.isValidSchema(schema)){
-	  this.http.put(this.base_url+"posts/view/testando-services-do-angular_60/edit",schema,httpOptions).subscribe((data) => console.log(data))
+	  this.http.put(this.base_url+"posts/view/testando-agora-o-simplemde_60/edit",schema,httpOptions).subscribe((data) => console.log(data))
   }
   else{
 	console.log("Erro: Schema Inválido");

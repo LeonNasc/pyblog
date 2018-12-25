@@ -13,13 +13,13 @@ CORS(app)
 ################## Rotas que não fazem parte da API #####################
 @app.route("/<path:dummy>", methods=['POST','GET','PUT','DELETE'])
 def not_found(dummy):
-  return "{'erro':'Rota %s inválida'}" % (dummy)
+  return '{"erro":"Rota %s inválida"}' % (dummy)
 
 ########################## Rotas via POST ##############################  
 @app.route("/api/v1/blog/posts/new",methods=['POST'])
 def make_a_post():
   data = dict(request.json)
-  return rt.make_new_post(data)
+  return '{"link": "%s"}' % rt.make_new_post(data)
 
 ########################## Rotas via GET ##############################  
 @app.route("/api/v1/blog/posts/recents",methods=['GET'])
@@ -63,11 +63,7 @@ def posts_by_id(post_id):
 @app.route("/api/v1/blog/posts/view/<post_id>/edit",methods=['PUT'])
 def edit_post(post_id):
   data = dict(request.json)
-  try:
-      return rt.edit_post(post_id,data)
-  except Exception as e:
-      print("WTF:",str(e))
-      return not_found('view/%s'% post_id)
+  return  '{"link": "%s"}' % rt.edit_post(post_id,data)
 
 ######################### Rotas via DELETE ##############################  
 @app.route("/api/v1/blog/posts/view/<post_id>/delete",methods=['DELETE'])
