@@ -43,7 +43,7 @@ option = {promptURLs: true,
 
 	if(this.isValidSchema(schema)){
 		this.http.post(this.base_url+"posts/new",schema,httpOptions).subscribe((data) => console.log(data))
-		window.location.href= window.location.href.match(/^https?:\/\/[a-z0-9\.]*\/?/)
+		window.location.href= window.location.href.match(/^https?:\/\/[a-z0-9\.]*\/?/)[0]
 	}
   }
 }
