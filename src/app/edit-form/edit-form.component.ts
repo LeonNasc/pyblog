@@ -10,11 +10,13 @@ import { PostableComponent } from '../postable/postable.component';
 })
 export class EditFormComponent extends PostableComponent implements OnInit{
 
+  renderedConteudo = this.ngRenderMd();
+
   constructor(private http:HttpClient,private enquirer:EnquirerService) { super() }
 
   ngOnInit() {
 	  let data_fetched = <any>{};
-	  this.http.get(this.base_url+"posts/view/testando-services-do-angular_59").subscribe((data)=> 
+	  this.http.get(this.base_url+"posts/view/testando-services-do-angular_60").subscribe((data)=> 
 		  {
 			  if(data.hasOwnProperty("posts")){
 				data_fetched =  data['posts'][0];
@@ -33,11 +35,14 @@ export class EditFormComponent extends PostableComponent implements OnInit{
   let schema = this.ngDefineSchema();
 
   if(this.isValidSchema(schema)){
-	  this.http.put(this.base_url+"posts/view/testando-services-do-angular_59/edit",schema,httpOptions).subscribe((data) => console.log(data))
+	  this.http.put(this.base_url+"posts/view/testando-services-do-angular_60/edit",schema,httpOptions).subscribe((data) => console.log(data))
   }
   else{
 	console.log("Erro: Schema Inválido");
   }
+	 this.ngOnInit()
 }
+  ngRenderMd(){
+  }
   
 }

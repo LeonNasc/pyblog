@@ -8,12 +8,19 @@
 		<label for="autor">Titulo</label>
 		<input type="text" [(ngModel)]='titulo'name="titulo">
 
-		<label for="autor">Conteudo</label>
-		<input type="text" [(ngModel)]='conteudo' name="conteudo">
-
+		<simplemde [(ngModel)]='conteudo' [ngModelOptions]="{standalone: true}"></simplemde>
 		<label for="autor"> tags</label>
 		<input type="text" [(ngModel)]='tags' name="tags">
 
 		<button (click)='sendEditForm()'>Teste HTTP de edição</button>
 	</section>
 	</form>
+	<br>
+	<div class="card">
+		<div class="card-body">
+			<h3 class="card-title"> {{titulo}} </h3>
+			<hr>
+			<!--<div class="card-content"><markdown ngPreserveWhitespaces> {{conteudo}}</markdown> </div>-->
+			<div markdown [data]="conteudo" class="card-content"></div>
+		</div>
+	</div>

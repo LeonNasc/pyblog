@@ -3,7 +3,10 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { SimplemdeModule, SIMPLEMDE_CONFIG } from 'ng2-simplemde/no-style'
+import { MarkdownModule } from 'ngx-markdown' 
 
+// Componentes
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
@@ -56,8 +59,11 @@ const appRoutes: Routes = [
   ],
   imports: [
     RouterModule.forRoot(appRoutes,{ enableTracing: true }) // <-- debugging purposes only
-    ,BrowserModule, HttpClientModule,FormsModule
-  ],
+	  ,BrowserModule, HttpClientModule,FormsModule,
+	  SimplemdeModule.forRoot({
+      provide: SIMPLEMDE_CONFIG,
+      useValue: {}
+	  }),MarkdownModule.forRoot(),],
   providers: [],
   bootstrap: [AppComponent]
 })

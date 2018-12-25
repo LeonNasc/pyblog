@@ -14,17 +14,10 @@
 	display:block;
 	}
 
+	#conteudos{
+		padding-top:1em;
+	}	
 	app-sidebar{
-	float:left;
-	border-right:1px solid #dedede;
-	min-height:90vh;
-	padding:1%;
-	display:block;
-	margin-right:2%;
-	}
-
-	router-outlet{
-	padding:2%;
-	width:70vw;
+		border-right: 1px solid #dedede;
 	}
 }
