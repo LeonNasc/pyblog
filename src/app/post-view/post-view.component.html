@@ -1,3 +1,12 @@
-<p>
-  post-view works!
-</p>
+<div class="card">
+	<div class="card-title"> {{titulo}} </div>
+	<br>
+	<small> Por {{autor}} em {{postado_em}}</small>
+	<hr>
+	<div class="card-body">
+		<div markdown [data]='conteudo' class="card-text"></div>
+		<hr>
+		<small> {{tags}}</small>
+	</div>
+</div>
+

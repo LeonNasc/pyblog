@@ -33,7 +33,7 @@ const appRoutes: Routes = [
   { path: "", redirectTo: "/home", pathMatch: "full" },
   { path: "test/post_form", component: FormPostComponent },
   { path: "test/edit_form", component: EditFormComponent },
-  { path: "test/populate_post", component: PostViewComponent },
+	{ path: "test/populate_post/:id", component: PostViewComponent },
   { path: "test/populate_list", component: PostListComponent },
   { path: "**", component: PageNotFoundComponent }
 ];

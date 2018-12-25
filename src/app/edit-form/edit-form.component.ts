@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { EnquirerService } from '../enquirer.service';
 import { PostableComponent } from '../postable/postable.component';
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-edit-form',
