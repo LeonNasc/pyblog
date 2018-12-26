@@ -22,8 +22,8 @@ export class PostListComponent extends PostableComponent implements OnInit {
 			try{
 			//Aqui data_fetched é uma lista de posts
 			data_fetched =  data;
-			this.posts = data_fetched			}
-			console.log(this.posts) 
+				this.posts = data_fetched		
+			}
 			catch(e){
 				console.log(e)
 			}

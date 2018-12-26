@@ -10,11 +10,12 @@ import { PostableComponent } from '../postable/postable.component';
 })
 export class PostViewComponent extends PostableComponent implements OnInit {
 
-	params = '';
+	private params;
+        public postado_em;
 
 	constructor(private http:HttpClient,private route: ActivatedRoute) {
-		    this.route.params.subscribe( params => this.params = params );	
 		super();
+		this.route.params.subscribe( params => this.params = params );	
 	}
 
   ngOnInit() {
@@ -30,7 +31,7 @@ export class PostViewComponent extends PostableComponent implements OnInit {
 			this.postado_em = data_fetched.postado_em;
 			}
 			catch(e){
-				print(e)
+				console.log(e)
 			}
 		  }
 	  )

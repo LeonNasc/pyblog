@@ -11,13 +11,16 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class EditFormComponent extends PostableComponent implements OnInit{
 
-  renderedConteudo = this.ngRenderMd();
+	params;
 
-  constructor(private http:HttpClient,private enquirer:EnquirerService) { super() }
+	constructor(private http:HttpClient,private enquirer:EnquirerService,private route: ActivatedRoute) { 
+		super();
+		this.route.params.subscribe( params => this.params = params );	
+	}
 
   ngOnInit() {
 	  let data_fetched = <any>{};
-	  this.http.get(this.base_url+"posts/view/testando-services-do-angular_60").subscribe((data)=> 
+	  this.http.get(this.base_url+"posts/view/"+this.params.id).subscribe((data)=> 
 		  {
 			data_fetched =  data[0];
 			this.autor = data_fetched.autor;
@@ -34,7 +37,7 @@ export class EditFormComponent extends PostableComponent implements OnInit{
   let schema = this.ngDefineSchema();
 
   if(this.isValidSchema(schema)){
-	  this.http.put(this.base_url+"posts/view/testando-agora-o-simplemde_60/edit",schema,httpOptions).subscribe((data) => console.log(data))
+	  this.http.put(this.base_url+`posts/view/${this.params.id}/edit`,schema,httpOptions).subscribe((data) => console.log(data))
   }
   else{
 	console.log("Erro: Schema Inválido");
@@ -43,5 +46,4 @@ export class EditFormComponent extends PostableComponent implements OnInit{
 }
   ngRenderMd(){
   }
-  
 }
