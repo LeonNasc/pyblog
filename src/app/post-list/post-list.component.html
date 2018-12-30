@@ -1,16 +1,16 @@
 <div id="post_list">
 	<div *ngFor="let post of posts">
 		<div class="card">
-			<a [routerLink] = "['/test/populate_post/' + post.link]">
+			<a [routerLink] = "['/posts/' + post.link]">
 				<h3 class="card-title"> {{post.titulo}} </h3>
 			</a>
 			<br>
-			<small> Por {{post.autor}} em {{post.postado_em}}</small>
 			<hr>
 			<div class="card-body">
 				<div markdown [data]='post.conteudo' class="card-text"></div>
 				<hr>
-				TAGS:<small> {{post.tags}}</small>
+			<small> Por {{post.autor}} em {{post.postado_em}}</small>
+			|	TAGS:<small> {{post.tags}}</small>
 			</div>
 		</div><br><br>
 	</div>
