@@ -29,6 +29,10 @@ export class PostListComponent extends PostableComponent implements OnInit {
 			}
 		  }
 	  )
+
   }
+	ngAfterViewChecked() {
+	  setTimeout(document.querySelectorAll(".card img").forEach((el) => el.parentElement.style.textAlign = "center"),1500);
+	}
 
 }
