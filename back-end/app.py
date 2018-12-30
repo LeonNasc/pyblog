@@ -63,7 +63,16 @@ def posts_by_id(post_id):
 @app.route("/api/v1/blog/posts/view/<post_id>/edit",methods=['PUT'])
 def edit_post(post_id):
   data = dict(request.json)
-  return  '{"link": "%s"}' % rt.edit_post(post_id,data)
+
+  # Controle de acesso simples
+  with open("./configs/app_params.json") as configs:
+      import json
+      data['authenticated'] = data['login_token'] == json.load(configs)['logintoken']
+
+  if (data['authenticated]']):
+      return  '{"link": "%s"}' % rt.edit_post(post_id,data)
+  else:
+      return '{"erro": "Usuário não autenticado"}'
 
 ######################### Rotas via DELETE ##############################  
 @app.route("/api/v1/blog/posts/view/<post_id>/delete",methods=['DELETE'])

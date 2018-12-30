@@ -29,10 +29,14 @@ class ConnectionStrategy:
   que vão efetivamente lidar com o banco de dados'''
 
   def __init__(self, strategy):
+    import json
 
-    db = Postgres('host=172.17.0.2 port=5432 dbname=test connect_timeout=10')
-   #IP do BD no container atual. Deve mudar no deploy.
-   #TODO: Parametrizar dados de conexão
+    dsn = ''
+    path = path_handler("./../configs/db_conn.json")
+    with open(path) as configs:
+        dsn = json.load(configs)['dsn']
+
+    db = Postgres(dsn)
 
     if strategy == 'ro':
       #Somente serve para os acessos que usam o método GET
@@ -96,7 +100,6 @@ class Enquirer:
 
   def select_query(self, params):
     #método de seleção. Funciona com uma conexão 'ro' ou 'rw'
-    #TODO: Transformar params em duplas 'chave=valor'
     query = "SELECT * FROM %s WHERE %s ORDER BY postado_em DESC;" % (self.DB_NAME, params)
 
     return query
@@ -113,7 +116,6 @@ class Enquirer:
   def update_query(self, params):
     self.check_write_permission()
     #método de atualização. Funciona soemnte em conexões 'rw'
-    #TODO: Destrinchar os dados de params para o query 
     changes = ''
     for key in params.keys():
        changes = changes + key + "='" + params[key] + "',"
@@ -135,3 +137,10 @@ class Enquirer:
   def check_write_permission(self):
     if self.type == 'ro':
       raise 'Access method does not permit this operation'
+
+
+def path_handler(path):
+    import os
+    dirname = os.path.dirname(__file__)
+    filename = os.path.join(dirname, path)
+    return filename
