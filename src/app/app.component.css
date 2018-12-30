@@ -17,6 +17,8 @@
 	#conteudos{
 		padding-top:1em;
 	}	
-
+	#sidebar{
+		border-right:1px solid #dedede;
+	}	
 
 }

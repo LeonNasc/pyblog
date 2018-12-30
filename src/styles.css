@@ -3,8 +3,16 @@
 
 	.card-title, .card > small{
 		padding:0.4em;
+                font-family: 'Open Sans', cursive;
+		font-weight:bold;
+		color:#6e6e6e;
+
 	}
 
+	.card-body{
+
+
+	}
 	.card  img{
 		max-width:100%;
 		margin-left:auto;

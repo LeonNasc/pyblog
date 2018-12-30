@@ -1,12 +1,12 @@
 <div class="card">
-	<div class="card-title"> {{titulo}} </div>
+	<h3 class="card-title"> {{titulo}} </h3>
 	<br>
-	<small> Por {{autor}} em {{postado_em}}</small>
 	<hr>
 	<div class="card-body">
 		<div markdown [data]='conteudo' class="card-text"></div>
 		<hr>
-		<small> {{tags}}</small>
+	<small class="text-muted"> Por {{autor}} em {{postado_em}}</small>
+	|	<small> {{tags}}</small>
 	</div>
 </div>
 
